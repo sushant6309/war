@@ -7,16 +7,25 @@
  */
 namespace App\Http\Controllers\Army;
 
+use App\Http\Controllers\Soldier\Soldier;
+use App\Http\Controllers\Weapons\Weapons;
+
 class Army
 {
     protected $army=[];
+    protected $name;
 
-    public function getArmy($soldiers,$weapons,$no)
+    public function __construct($name)
+    {
+        $this->name =$name;
+    }
+
+    public function getArmy($no)
     {
         for($i=0;$i<$no;$i++)
         {
-            $this->army[$i]['soldier']= $soldiers[$i];
-            $this->army[$i]['weapon']= $weapons[$i];
+            $this->army[$i]['soldier']= new Soldier();
+            $this->army[$i]['weapon']= new Weapons();
         }
     }
 }
