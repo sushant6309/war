@@ -36,6 +36,60 @@ class HomeController extends Controller {
 		return view('war.team-form');
 	}
 
+	public function hasGeneral(Army $army)
+	{
+		$flag = 0;
+		foreach($army->army as $soldier)
+		{
+			if($soldier['soldier']->soldierType == "General")
+			{
+				$flag =1;
+			}
+		}
+		return $flag;
+	}
+
+	public function wantToSurrender()
+	{
+		if (rand(1,100)<=10)
+		{
+			return $surrender =1;
+		}
+		return $surrender = 0;
+	}
+
+	public function hit(Army $army,$position)
+	{
+		$accuracy = $army->army[$position]['soldier']->soldierWeapon->name;
+		if (rand(1,100)<=$accuracy)
+		{
+			return 1;
+		}
+		return 0;
+
+	}
+
+	public function attack(Army $army_1,Army $army_2,$pos)
+	{
+		$noOfSoldiers = count($army_2->army);
+		$position = rand(0,$noOfSoldiers);
+		if(array_key_exists($position,$army_2->army))
+		{
+			$hit= $this->hit($army_1,$pos);
+			if($hit == 1)
+			{
+				unset($army_2->army[$position]);
+				return  "Killed";
+			}
+
+			return "Missed Fire";
+		}else
+		{
+			return "Fired at Wrong Place Wrong Time";
+		}
+
+	}
+
 	public function getWarData()
 	{
 		$numberOfSoldiers = Input::get('no_of_soldiers');
@@ -44,10 +98,14 @@ class HomeController extends Controller {
 		$Army_B = new Army(Input::get('team_two'));
 		$Army_A->getArmy($numberOfSoldiers);
 		$Army_B->getArmy($numberOfSoldiers);
+		$chance = [$Army_A,$Army_B];
+		dd($Army_B->army[0]['soldier']->soldierWeapon->name);
 
-		$war = ['army_A'=>$Army_A,'army_B'=>$Army_B];
 
-		dd($war);
+
+
 	}
+
+
 
 }

@@ -52,10 +52,10 @@ class Weapons
                     'max_kill'=>0
         ]
     ];
-    protected $name;
-    protected $power;
-    protected $accuracy;
-    protected $max_kill;
+    public $name;
+    public $power;
+    public $accuracy;
+    public $max_kill;
 
     public function __construct()
     {

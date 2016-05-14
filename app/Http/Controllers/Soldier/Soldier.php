@@ -8,17 +8,27 @@
 namespace App\Http\Controllers\Soldier;
 
 
-class Soldier
+use App\Http\Controllers\Weapons\Weapons;
+
+ class Soldier
 {
 
     protected $power = [1,2,3,4,5];
     protected $type = ['General','Major','Captain','Lieutenant','Jawan'];
-    protected $soldierPower;
-    protected $soldierType;
+    public $soldierPower;
+    public $soldierType;
+    public $soldierWeapon;
 
    public function __construct()
    {
-       $this->powerType = array_rand($this->power);
-       $this->soldierType = array_rand($this->type);
+       $this->soldierPower = array_rand($this->power);
+       $type = array_rand($this->type);
+       $this->soldierType = $this->type[$type];
+       if($type == 0)
+       {
+           unset($this->type[0]);
+       }
+       $this->soldierWeapon = new Weapons();
    }
+
 }

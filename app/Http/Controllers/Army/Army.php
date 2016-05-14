@@ -12,8 +12,8 @@ use App\Http\Controllers\Weapons\Weapons;
 
 class Army
 {
-    protected $army=[];
-    protected $name;
+    public $army=[];
+    public $name;
 
     public function __construct($name)
     {
@@ -24,8 +24,7 @@ class Army
     {
         for($i=0;$i<$no;$i++)
         {
-            $this->army[$i]['soldier']= new Soldier();
-            $this->army[$i]['weapon']= new Weapons();
+            $this->army[$i]=['soldier'=> new Soldier()];
         }
     }
 }
