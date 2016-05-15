@@ -20,7 +20,8 @@
     </header>
 
     <div class="container">
-        <div class="row">
+
+        <div class="row" id="sushant">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <p>Just think again atleast once before moving forward</p>
                 <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
@@ -76,7 +77,8 @@
         }).success(function(responce){
             if(responce.status == 'OK')
             {
-                alert('Lets War');
+               $('#sushant').html(responce);
+
             }else{
                 alert('Dude what is going on');
             }
