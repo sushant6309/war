@@ -62,6 +62,8 @@
                 </div>
             </div>
         </div>
+        <div id="matchWin"></div>
+        <div id="result"></div>
     </div>
 
     <hr>
@@ -83,9 +85,13 @@
         }).success(function(responce){
             if(responce.status == 'OK')
             {
-               form.html('');
-                form.html('<div> <p> Team Won :'+responce.matchWon+' </div><br>' +
-                        '<div><p>Commentary :'+responce.messages+' </p></div>')
+                console.log( responce.messages.length);
+
+                $("#matchWin").html('<div> <p> Team Won :'+responce.matchWon+' </div><br>');
+                for(var i=0;i<responce.messages.length;i++)
+                {
+                    $("#result").append('<div>'+responce.messages[i]+'</div><br>');
+                }
 
             }else{
                 alert('Dude what is going on');
