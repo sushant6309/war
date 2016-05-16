@@ -21,8 +21,9 @@
 
     <div class="container">
 
-        <div class="row" id="sushant">
+        <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div id="form">
                 <p>Just think again atleast once before moving forward</p>
                 <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
                 <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
@@ -58,7 +59,7 @@
                         </div>
                     </div>
                     {!! Form::close() !!}
-
+                </div>
             </div>
         </div>
     </div>
@@ -68,16 +69,23 @@
 
 @section('JS')
 <script>
+    var form = $('#form');
     $('#submit_war').click(function(e){
         e.preventDefault();
         $.ajax({
             "url":'{{route('war.get.data')}}',
             "data":$('#war_form').serializeArray(),
-            "method":'Post'
+            "method":'Post',
+            "beforeSend":function(){
+                form.html('');
+                form.html('<p> Wait while we load the War that you started </p>')
+            }
         }).success(function(responce){
             if(responce.status == 'OK')
             {
-               $('#sushant').html(responce);
+               form.html('');
+                form.html('<div> <p> Team Won :'+responce.matchWon+' </div><br>' +
+                        '<div><p>Commentary :'+responce.messages+' </p></div>')
 
             }else{
                 alert('Dude what is going on');

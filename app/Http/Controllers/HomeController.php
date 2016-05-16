@@ -60,7 +60,11 @@ class HomeController extends Controller {
 
 	public function hit(Army $army,$position)
 	{
-		$accuracy = $army->army[$position]['soldier']->soldierWeapon->accuracy;
+		if(array_key_exists($position,$army->army)) {
+			$accuracy = $army->army[$position]['soldier']->soldierWeapon->accuracy;
+		}else{
+			$accuracy = 0;
+		}
 		if (rand(1,100)<=$accuracy)
 		{
 			return 1;
@@ -140,7 +144,6 @@ class HomeController extends Controller {
 			}
 		}
 
-		dd(['match'=>$matchWon,'messages'=>$messages]);
 		return[
 			'status'=>'OK',
 			'matchWon'=>$matchWon,
